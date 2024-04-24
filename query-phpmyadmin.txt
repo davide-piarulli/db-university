@@ -205,6 +205,21 @@ WHERE
 per ogni esame, stampando anche il voto massimo. Successivamente,
 filtrare i tentativi con voto minimo 18.
 
-
+SELECT
+    `exam_student`.`student_id`,
+    `students`.`name`,
+    `students`.`surname`,
+    `exams`.`course_id`,
+    COUNT(`exam_student`.`vote`) AS `tentativi_esame`,
+    MAX(`exam_student`.`vote`) AS `Voto_Massimo`
+FROM
+    `students`
+INNER JOIN `exam_student` ON `students`.`id` = `exam_student`.`student_id`
+INNER JOIN `exams` ON `exam_student`.`exam_id` = `exams`.`id`
+WHERE
+    `exam_student`.`vote` >= 18
+GROUP BY
+    `exam_student`.`student_id`,
+    `exams`.`course_id`
 
 *************JOIN*************************
